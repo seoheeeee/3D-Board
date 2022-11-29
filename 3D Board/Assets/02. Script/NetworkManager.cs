@@ -81,7 +81,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     //서버 연결
     void Awake() => Screen.SetResolution(2880, 1440, false);
-
+    private void Start()
+    {
+        //Connect();
+    }
     void Update()
     {
         Debug.Log(PhotonNetwork.NetworkClientState.ToString());
@@ -126,8 +129,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ChatInput.text = "";
         for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
 
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-        //player
+        GameObject temp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+
+        player = temp.GetComponent<PlayerManager>();
+
+        player.Num = PhotonNetwork.PlayerList.Length;
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) { RoomInput.text = ""; CreateRoom(); }
