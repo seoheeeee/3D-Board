@@ -95,6 +95,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         LobbyPanel.SetActive(true);
         ChatPanel.SetActive(false);
         PhotonNetwork.LocalPlayer.NickName = NickNameInput.text;
+        PhotonNetwork.AutomaticallySyncScene = true;
         myList.Clear();
     }
 
