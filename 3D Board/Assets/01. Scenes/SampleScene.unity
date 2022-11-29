@@ -7527,6 +7527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f308d379e05da4a42aa19e79aa1c90c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectPanel: {fileID: 679880767}
   NickNameInput: {fileID: 833369221}
   LobbyPanel: {fileID: 1558577438}
   RoomInput: {fileID: 1199328963}
@@ -7550,6 +7551,7 @@ MonoBehaviour:
   - {fileID: 1910737811}
   ChatInput: {fileID: 1963130343}
   PV: {fileID: 2021584526}
+  player: {fileID: 0}
 --- !u!114 &2021584526
 MonoBehaviour:
   m_ObjectHideFlags: 0
