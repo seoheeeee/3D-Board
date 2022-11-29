@@ -130,18 +130,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ChatInput.text = "";
         for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
 
-        GameObject temp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
 
-        player = temp.GetComponent<PlayerManager>();
-
-        PV.RPC("SetPlayer", RpcTarget.All, PhotonNetwork.PlayerList.Length);
     }
 
-    [PunRPC]
-    void SetPlayer(int num)
-    {
-        player.Num = num;
-    }
+
 
     public override void OnCreateRoomFailed(short returnCode, string message) { RoomInput.text = ""; CreateRoom(); }
 

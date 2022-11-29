@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Photon.Realtime;
 
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
@@ -26,14 +27,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "IsAdmin", "Admin" } });
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "IsAdmin", "Admin" } });
 
+        if(photonView.IsMine)
+            photonView.RPC("SetPlayer", RpcTarget.AllBuffered, PhotonNetwork.PlayerList.Length);
     }
 
-    private void Update()
+    [PunRPC]
+    void SetPlayer(int num)
     {
-        Hashtable cp = PhotonNetwork.LocalPlayer.CustomProperties;
-
-        Debug.Log(cp["IsAdmin"]);
+        Num = num;
     }
+
 }
