@@ -9,6 +9,8 @@ using TMPro;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [Header("ConnectPanel")]
+    [SerializeField]
+    GameObject connectPanel;
     public TMP_InputField NickNameInput;
 
     [Header("LobbyPanel")]
@@ -54,8 +56,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < CellBtn.Length; i++)
         {
             CellBtn[i].interactable = (multiple + i < myList.Count) ? true : false;
-            CellBtn[i].transform.GetChild(0).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";
-            CellBtn[i].transform.GetChild(1).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
+            CellBtn[i].transform.GetChild(0).GetComponent<TMP_Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";
+            CellBtn[i].transform.GetChild(1).GetComponent<TMP_Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
         }
     }
 
@@ -113,6 +115,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         ChatPanel.SetActive(true);
+        LobbyPanel.SetActive(false);
+        connectPanel.SetActive(false);
+
         RoomRenewal();
         ChatInput.text = "";
         for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";

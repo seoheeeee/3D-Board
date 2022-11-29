@@ -451,7 +451,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71544384}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2021584525}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: Send
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &71544384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,7 +537,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 473.145, y: -0}
+  m_AnchoredPosition: {x: 473.145, y: 0}
   m_SizeDelta: {x: 946.29, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &90891190
@@ -660,7 +672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 473.145, y: -0}
+  m_AnchoredPosition: {x: 473.145, y: 0}
   m_SizeDelta: {x: 946.29, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &107105999
@@ -2686,7 +2698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 473.145, y: -0}
+  m_AnchoredPosition: {x: 473.145, y: 0}
   m_SizeDelta: {x: 946.29, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488951698
@@ -3823,7 +3835,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 865731459}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2021584525}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: JoinRandomRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &865731459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4127,7 +4151,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 929325128}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2021584525}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: Connect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &929325130
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5391,7 +5427,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1427285242}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2021584525}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: CreateRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1427285242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6423,7 +6471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 473.145, y: -0}
+  m_AnchoredPosition: {x: 473.145, y: 0}
   m_SizeDelta: {x: 946.29, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1806757675
@@ -7097,7 +7145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 473.145, y: -0}
+  m_AnchoredPosition: {x: 473.145, y: 0}
   m_SizeDelta: {x: 946.29, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1910737811
@@ -7525,6 +7573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f308d379e05da4a42aa19e79aa1c90c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectPanel: {fileID: 679880767}
   NickNameInput: {fileID: 833369221}
   LobbyPanel: {fileID: 1558577438}
   RoomInput: {fileID: 1199328963}
