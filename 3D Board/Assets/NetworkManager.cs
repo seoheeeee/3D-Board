@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -149,6 +150,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         PV.RPC("ChatRPC", RpcTarget.All, PhotonNetwork.NickName + " : " + ChatInput.text);
         ChatInput.text = "";
+    }
+
+    [PunRPC]
+    void SceneChange()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            SceneManager.LoadScene(1);
+        }
+    }
+
+    public void OnButtonSceneChange()
+    {
+        PV.RPC("SceneChange", RpcTarget.All);
     }
 
     [PunRPC] // RPC는 플레이어가 속해있는 방 모든 인원에게 전달한다
