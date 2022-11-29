@@ -133,7 +133,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         player = temp.GetComponent<PlayerManager>();
 
-        player.Num = PhotonNetwork.PlayerList.Length;
+        PV.RPC("SetPlayer", RpcTarget.All, PhotonNetwork.PlayerList.Length);
+    }
+
+    [PunRPC]
+    void SetPlayer(int num)
+    {
+        player.Num = num;
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) { RoomInput.text = ""; CreateRoom(); }
