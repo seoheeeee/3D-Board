@@ -87,7 +87,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        Debug.Log(PhotonNetwork.NetworkClientState.ToString());
+        //Debug.Log(PhotonNetwork.NetworkClientState.ToString());
         LobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 / " + PhotonNetwork.CountOfPlayers + "접속";
     }
 
@@ -121,6 +121,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+       
         ChatPanel.SetActive(true);
         LobbyPanel.SetActive(false);
         connectPanel.SetActive(false);
@@ -148,6 +149,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+       
         RoomRenewal();
         ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
     }
