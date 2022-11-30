@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,13 @@ public class TempGameManager : MonoBehaviour
 {
 
     public List<PlayerManager> playerManagerList;
+    GameObject[] temps;
     void Start()
     {
-        playerManagerList = new List<PlayerManager>();
+
+        //playerManagerList = new List<PlayerManager>();
        
-        GameObject[] temps = GameObject.FindGameObjectsWithTag("Manager");
+        temps = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject item in temps)
             playerManagerList.Add(item.GetComponent<PlayerManager>());
@@ -20,6 +23,6 @@ public class TempGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

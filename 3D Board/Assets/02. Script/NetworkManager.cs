@@ -130,7 +130,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ChatInput.text = "";
         for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
 
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
 
     }
 
@@ -168,7 +167,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void SceneChange()
     {
-        if(PhotonNetwork.IsMasterClient)
+
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+
+        if (PhotonNetwork.IsMasterClient)
         {
             SceneManager.LoadScene(1);
         }
