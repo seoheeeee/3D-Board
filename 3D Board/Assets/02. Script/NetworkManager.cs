@@ -129,9 +129,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ChatInput.text = "";
         for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
 
-        GameObject temp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-
-        player = temp.GetComponent<PlayerManager>();
+        //GameObject temp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        //player = temp.GetComponent<PlayerManager>();
 
         PV.RPC("SetPlayer", RpcTarget.All, PhotonNetwork.PlayerList.Length);
     }
