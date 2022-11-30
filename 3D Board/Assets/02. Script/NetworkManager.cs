@@ -88,7 +88,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Update()
     {
         //Debug.Log(PhotonNetwork.NetworkClientState.ToString());
-        LobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "肺厚 / " + PhotonNetwork.CountOfPlayers + "立加";
+        //LobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "肺厚 / " + PhotonNetwork.CountOfPlayers + "立加";
     }
 
     public void Connect() => PhotonNetwork.ConnectUsingSettings();
@@ -176,6 +176,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void OnButtonSceneChange()
     {
+        Debug.Log("123123");
         PV.RPC("SceneChange", RpcTarget.All);
     }
 
