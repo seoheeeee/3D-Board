@@ -35,7 +35,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     }
 
 
-  
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
