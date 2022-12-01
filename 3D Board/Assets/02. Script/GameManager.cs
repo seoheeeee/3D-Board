@@ -1,13 +1,40 @@
 using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class TempGameManager : MonoBehaviourPun
+public class GameManager : MonoBehaviourPun
 {
+
+    static GameManager instance;
+
     [SerializeField] Node startNode;
     public List<PlayerManager> playerManagerList;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = new GameManager();
+            return instance;
+        }
+        private set => instance = value;
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (Instance != this)
+                Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
 
@@ -18,8 +45,6 @@ public class TempGameManager : MonoBehaviourPun
         foreach (GameObject item in temps)
             playerManagerList.Add(item.GetComponent<PlayerManager>());
 
-
-
         if (PhotonNetwork.IsMasterClient)
         {
             for (int i = 0; i < playerManagerList.Count; i++)
@@ -27,8 +52,6 @@ public class TempGameManager : MonoBehaviourPun
                 playerManagerList[i].TeleportPlayer(startNode.nextNode[playerManagerList[i].Num].transform.position);
             }
         }
-
-
 
     }
 
