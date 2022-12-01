@@ -1,8 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class BallGameManager : MonoBehaviour
 {
+    class ObjPoolingBall
+    {
+        public GameObject ball;
+        public Vector3 startPos;
+        public Vector3 endPos;
+
+        public ObjPoolingBall(GameObject ball, Vector3 startPos, Vector3 endPos)
+        {
+            this.ball = ball;
+            this.startPos = startPos;
+            this.endPos = endPos;
+        }
+    }
 
     enum Phase
     {
@@ -21,22 +36,16 @@ public class BallGameManager : MonoBehaviour
     [Range(0, 1)]
     public float speed;
 
-    [SerializeField]
-    Transform[] pos2;
-    [SerializeField]
-    GameObject player;
-
-
-    [SerializeField]
-    Transform[] pos4;
-    [SerializeField]
-    GameObject player2;
 
     [SerializeField]
     List<PlayerManager> playerList;
 
     [SerializeField]
     List<Transform> respawnPosList;
+
+    List<ObjPoolingBall> ballList;
+
+    List<int> positionIndex; 
 
     [SerializeField]
     Phase phase;
@@ -59,14 +68,14 @@ public class BallGameManager : MonoBehaviour
             playerList.Add(player.GetComponent<PlayerManager>());
         }
 
-        timer = timerReset = 10;
+        timer = timerReset = 1;
+
+        ballList = new List<ObjPoolingBall>();
+        positionIndex = new List<int>();
     }
 
     void Update()
     {
-
-        player.transform.position = Vector3.Lerp(pos2[0].transform.position, pos2[1].transform.position, speed);
-        player2.transform.position = Vector3.Lerp(pos4[0].transform.position, pos4[1].transform.position, speed);
 
         switch (phase)
         {
@@ -77,17 +86,41 @@ public class BallGameManager : MonoBehaviour
                 if (timer < 0)
                 {
                     count = Random.Range(10, 21);
-                    phase = Phase.Start;
+                    
 
                     for (int i = 0; i < count; i++)
                     {
-                        int randomPosIndex = Random.Range(0, respawnPosList.Count);
+                        int randomPosIndex =0;
+                        while (true)
+                        {
+                            randomPosIndex = Random.Range(0, respawnPosList.Count);
+                            if (!positionIndex.Contains(randomPosIndex))
+                            {
+                                positionIndex.Add(randomPosIndex);
+                                break;
+                            }
+                           
+                        }
+                         
                         //respawnPosList[randomPosIndex]
-                        ObjPool.Instance.GetObject(respawnPosList[randomPosIndex]);                   }
+                        ballList.Add(new ObjPoolingBall(ObjPool.Instance.GetObject(respawnPosList[randomPosIndex]),
+                                                                                   respawnPosList[randomPosIndex].position,
+                                                                                   respawnPosList[randomPosIndex].position + new Vector3(0, Random.Range(5, 50),0)));
+                        
+
+                    }
+                    phase = Phase.Start;
                 }
+
                 break;
             case Phase.Start:
 
+                foreach (ObjPoolingBall item in ballList)
+                {
+                    item.ball.transform.position = Vector3.Lerp(item.startPos, item.endPos, speed);
+                    
+                }
+                speed += Time.deltaTime; 
                 
 
                 break;

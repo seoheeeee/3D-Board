@@ -6,8 +6,8 @@ public class ObjPool : MonoBehaviour
 {
     public static ObjPool Instance = null;
 
-    [SerializeField]
-    GameObject poolingObj;
+    //[SerializeField]
+    public GameObject poolingObj;
 
     Queue<GameObject> objPoolingQueue = new Queue<GameObject>();
 
