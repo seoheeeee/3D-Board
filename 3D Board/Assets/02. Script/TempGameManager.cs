@@ -19,13 +19,17 @@ public class TempGameManager : MonoBehaviourPun
             playerManagerList.Add(item.GetComponent<PlayerManager>());
 
 
-        for (int i = 0; i < playerManagerList.Count; i++)
+
+        if (PhotonNetwork.IsMasterClient)
         {
-            playerManagerList[i].TeleportPlayer(startNode.nextNode[i].transform.position);
+            for (int i = 0; i < playerManagerList.Count; i++)
+            {
+                playerManagerList[i].TeleportPlayer(startNode.nextNode[playerManagerList[i].Num].transform.position);
+            }
         }
 
 
-        
+
     }
 
 

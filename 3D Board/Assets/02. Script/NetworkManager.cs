@@ -30,8 +30,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [Header("ETC")]
     public PhotonView PV;
-    [SerializeField]
-    PlayerManager player;
 
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple;
@@ -130,7 +128,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ChatInput.text = "";
         for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
 
+        GameObject temp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
 
+        temp.GetComponent<PlayerManager>().Num = PhotonNetwork.PlayerList.Length;
     }
 
 
@@ -167,9 +167,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void SceneChange()
     {
-
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-
         if (PhotonNetwork.IsMasterClient)
         {
             SceneManager.LoadScene(1);
@@ -178,7 +175,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void OnButtonSceneChange()
     {
-        Debug.Log("123123");
         PV.RPC("SceneChange", RpcTarget.All);
     }
 
