@@ -4,25 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TempGameManager : MonoBehaviour
+public class TempGameManager : MonoBehaviourPun
 {
-
+    [SerializeField] Node startNode;
     public List<PlayerManager> playerManagerList;
-    GameObject[] temps;
     void Start()
     {
 
         //playerManagerList = new List<PlayerManager>();
-       
-        temps = GameObject.FindGameObjectsWithTag("Player");
+
+        GameObject[] temps = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject item in temps)
             playerManagerList.Add(item.GetComponent<PlayerManager>());
+
+
+        for (int i = 0; i < playerManagerList.Count; i++)
+        {
+            playerManagerList[i].TeleportPlayer(startNode.nextNode[i].transform.position);
+        }
+
+
+        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
+
 }
