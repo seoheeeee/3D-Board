@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviourPun
 
     }
 
+    void DiceRoll()
+    {
+
+    }
 
 
 }
