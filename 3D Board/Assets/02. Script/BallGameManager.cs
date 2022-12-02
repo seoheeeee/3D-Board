@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 
@@ -35,7 +36,12 @@ public class BallGameManager : MonoBehaviour
 
     [Range(0, 1)]
     public float speed;
+    int count;
+    float timer, timerReset;
+    int round = 1;
 
+    [SerializeField]
+    TMP_Text numText;
 
     [SerializeField]
     List<PlayerManager> playerList;
@@ -53,11 +59,7 @@ public class BallGameManager : MonoBehaviour
     [SerializeField]
     State state;
 
-    int count; 
-
-    float timer, timerReset;
-
-    int round = 1;
+    
 
     void Start()
     {
@@ -132,4 +134,10 @@ public class BallGameManager : MonoBehaviour
                 break;
         }
     }
+
+    void UpButtonClick()
+    {
+        
+    }
+
 }
