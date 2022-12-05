@@ -94,12 +94,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     }
     public void Teleport(Vector3 targetPos)
     {
-        photonView.RPC("TeleportRPC", RpcTarget.AllBuffered, targetPos);
-    }
-    [PunRPC]
-    void TeleportRPC(Vector3 targetPos)
-    {
         transform.position = targetPos;
+
+        //photonView.RPC("TeleportRPC", RpcTarget.AllBuffered, targetPos);
     }
+    //[PunRPC]
+    //void TeleportRPC(Vector3 targetPos)
+    //{
+    //}
 
 }
