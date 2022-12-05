@@ -101,7 +101,6 @@ public class BallGameManager : MonoBehaviour
                                 positionIndex.Add(randomPosIndex);
                                 break;
                             }
-                           
                         }
                         //respawnPosList[randomPosIndex]
                         ballList.Add(new ObjPoolingBall(ObjPool.Instance.GetObject(respawnPosList[positionIndex[i]]),
