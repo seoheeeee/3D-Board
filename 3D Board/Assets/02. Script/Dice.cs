@@ -7,8 +7,8 @@ public class Dice : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] DiceSide[] diceSides;
 
-    bool hasLanded;
-    bool thrown;
+    [SerializeField] bool hasLanded;
+    [SerializeField] bool thrown;
     Vector3 initPostion;
     public int diceValue;
 
@@ -43,7 +43,10 @@ public class Dice : MonoBehaviour
         {
             thrown = true;
             rb.useGravity = true;
+            //transform.rotation = Quaternion.identity;
             rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));
+            rb.AddForce(new Vector3(0, 70, 0), ForceMode.Impulse);
+
         }
         else if(thrown && hasLanded)
         {
@@ -62,7 +65,9 @@ public class Dice : MonoBehaviour
         DiceReset();
         thrown = true;
         rb.useGravity = true;
-        rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));
+        //rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));
+        rb.AddForce(new Vector3(0, 70, 0),ForceMode.Impulse);
+
     }
 
     void SideValueCheck()

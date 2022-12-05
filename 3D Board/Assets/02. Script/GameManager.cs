@@ -49,10 +49,11 @@ public class GameManager : MonoBehaviourPun
         {
             for (int i = 0; i < playerManagerList.Count; i++)
             {
-                playerManagerList[i].TeleportPlayer(startNode.nextNode[playerManagerList[i].Num].transform.position);
+                playerManagerList[i].Teleport(startNode.nextNode[playerManagerList[i].Num].transform.position);
             }
         }
 
+        playerManagerList[0].node = startNode.nextNode[0];
     }
 
     void DiceRoll()

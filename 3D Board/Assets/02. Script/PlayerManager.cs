@@ -5,7 +5,7 @@ using TMPro;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Realtime;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
@@ -16,30 +16,33 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
 
     [SerializeField]
     float height = 1.5f;
+    [Range(0,1)]
     [SerializeField]
     float speed;
     [SerializeField]
     float delay = 0.1f;
 
-
     public bool isMove;
-    public int Num { 
-        
-        get => num;
+    public Node node;
 
+    public int Num 
+    { 
+        get => num;
         set 
         {
             num = value;
             numTxt.text = value.ToString();
         }
     }
-
-
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
-
+    private void Update()
+    {
+        if(node != null)
+        transform.position = Bezier(node.transform.position, node.nextNode[0].transform.position, speed);
+    }
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
         //PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "IsAdmin", "Admin" } });
@@ -47,15 +50,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
         if (photonView.IsMine)
             photonView.RPC("SetPlayer", RpcTarget.AllBuffered, PhotonNetwork.PlayerList.Length);
     }
-
     [PunRPC]
     void SetPlayer(int num)
     {
         Num = num;
     }
+    public void Move()
+    {
 
-
-    public Vector3 Bezier(Vector3 start, Vector3 end, float value)
+    }
+    Vector3 Bezier(Vector3 start, Vector3 end, float value)
     {
         Vector3 startH = start + new Vector3(0, height, 0);
         Vector3 endH = end + new Vector3(0, height, 0);
@@ -88,14 +92,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
             yield return null;
         }
     }
-
-
-    public void TeleportPlayer(Vector3 targetPos)
+    public void Teleport(Vector3 targetPos)
     {
-        photonView.RPC("TeleportPlayerRPC", RpcTarget.AllBuffered, targetPos);
+        photonView.RPC("TeleportRPC", RpcTarget.AllBuffered, targetPos);
     }
     [PunRPC]
-    void TeleportPlayerRPC(Vector3 targetPos)
+    void TeleportRPC(Vector3 targetPos)
     {
         transform.position = targetPos;
     }
