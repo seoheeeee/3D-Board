@@ -15,12 +15,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     int num;
 
     [SerializeField]
-    float height = 1.5f;
+    float jumpHeight;
+    [SerializeField]
+    float offset;
+    Vector3 heightPos;
+    Vector3 offsetPos;
+
     [Range(0,1)]
     [SerializeField]
     float speed;
     [SerializeField]
-    float delay = 0.1f;
+    float delay;
 
     public bool isMove;
     public Node node;
@@ -38,15 +43,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     {
         DontDestroyOnLoad(gameObject);
     }
-    private void Update()
+    private void Start()
     {
-        if(node != null)
-        transform.position = Bezier(node.transform.position, node.nextNode[0].transform.position, speed);
+        jumpHeight = 1.5f;
+        offset = 0.75f;
+        delay = 0.2f;
+        heightPos = new Vector3(0, jumpHeight, 0);
+        offsetPos = new Vector3(0, offset, 0);
     }
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        //PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "IsAdmin", "Admin" } });
-
         if (photonView.IsMine)
             photonView.RPC("SetPlayer", RpcTarget.AllBuffered, PhotonNetwork.PlayerList.Length);
     }
@@ -55,14 +61,36 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     {
         Num = num;
     }
-    public void Move()
+    public void Move(int diceValue, float speed = 1)
     {
+        StartCoroutine(MovePlayer(diceValue, speed));
+    }
+    // 지역변수 speed = 1 이렇게 선언해주면 이 함수를 다른 곳에서 쓸 때 speed 값을 쓰지 않으면 자동으로 1로 할당된다.
+    IEnumerator MovePlayer(int diceValue ,float speed = 1)
+    {
+        for (int i = 0; i < diceValue; i++)
+        {
+            // speed 변수에 담기는 값이 1이 넘으면 Lerp가 끝났다는 증거이기 때문에 말그대로 delay를 줘서 잠시 다음 이동하기 전 유예시간을 주는 코드
+            while (1 + delay > this.speed)
+            {
+                //같은 이름의 변수는 this를 붙이면 전역변수 붙이지 않는다면 지역변수를 가르킨다.
+                this.speed += Time.deltaTime * speed;
 
+                //offset은 startPos와 endPos Y축 보정을 해주는 값이다.
+                transform.position = Bezier(node.transform.position + offsetPos,
+            node.nextNode[0].transform.position + offsetPos, this.speed);
+
+                //코루틴을 통한 while문을 돌리기 위해선 while문 안에 yield return null 을 넣어주지 않는다면 정상적으로 작동하지 않는다.
+                yield return null;
+            }
+            node = node.nextNode[0];
+            this.speed = 0;
+        }
     }
     Vector3 Bezier(Vector3 start, Vector3 end, float value)
     {
-        Vector3 startH = start + new Vector3(0, height, 0);
-        Vector3 endH = end + new Vector3(0, height, 0);
+        Vector3 startH = start + heightPos;
+        Vector3 endH = end + heightPos;
 
         Vector3 A = Vector3.Lerp(start, startH, value);
         Vector3 B = Vector3.Lerp(startH, endH, value);
@@ -75,23 +103,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
         return F;
     }
 
-    IEnumerator MovePlayerCorutain(Vector3 startPos, Vector3 endPos)
-    {
-        speed = 0;
-        while (true)
-        {
-            isMove = true;
-            speed += Time.deltaTime;
-            transform.position = Bezier(startPos, endPos, speed);
-
-            if (speed >= 1.0f + delay)
-            {
-                isMove = false;
-                break;
-            }
-            yield return null;
-        }
-    }
     public void Teleport(Vector3 targetPos)
     {
         transform.position = targetPos;

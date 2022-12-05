@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviourPun
         }
 
         playerManagerList[0].node = startNode.nextNode[0];
+
+        playerManagerList[0].Move(3);
     }
 
     void DiceRoll()

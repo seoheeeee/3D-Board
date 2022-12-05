@@ -115,7 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numTxt: {fileID: 3295151184089061271}
   num: 0
-  height: 1.5
+  jumpHeight: 0
+  offset: 0
   speed: 0
   delay: 0.1
   isMove: 0
