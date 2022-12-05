@@ -59,8 +59,6 @@ public class BallGameManager : MonoBehaviour
     [SerializeField]
     State state;
 
-    
-
     void Start()
     {
         GameObject[] temps = GameObject.FindGameObjectsWithTag("Player");
@@ -74,6 +72,8 @@ public class BallGameManager : MonoBehaviour
 
         ballList = new List<ObjPoolingBall>();
         positionIndex = new List<int>();
+
+        
     }
 
     void Update()
@@ -87,8 +87,8 @@ public class BallGameManager : MonoBehaviour
 
                 if (timer < 0)
                 {
-                    count = Random.Range(10, 21);
-                    
+                    //count = Random.Range(10, 21);
+                    count = 3;
 
                     for (int i = 0; i < count; i++)
                     {
@@ -103,14 +103,12 @@ public class BallGameManager : MonoBehaviour
                             }
                            
                         }
-                         
                         //respawnPosList[randomPosIndex]
-                        ballList.Add(new ObjPoolingBall(ObjPool.Instance.GetObject(respawnPosList[randomPosIndex]),
-                                                                                   respawnPosList[randomPosIndex].position,
-                                                                                   respawnPosList[randomPosIndex].position + new Vector3(0, Random.Range(5, 50),0)));
-                        
-
+                        ballList.Add(new ObjPoolingBall(ObjPool.Instance.GetObject(respawnPosList[positionIndex[i]]),
+                                                                                   respawnPosList[positionIndex[i]].position,
+                                                                                   respawnPosList[positionIndex[i]].position + new Vector3(0, Random.Range(5, 30),0)));
                     }
+                    Debug.Log("123");
                     phase = Phase.Start;
                 }
 
@@ -119,14 +117,28 @@ public class BallGameManager : MonoBehaviour
 
                 foreach (ObjPoolingBall item in ballList)
                 {
+
                     item.ball.transform.position = Vector3.Lerp(item.startPos, item.endPos, speed);
                     
                 }
-                speed += Time.deltaTime; 
-                
+                speed += Time.deltaTime;
+                if (speed > 1)
+                {
+                    phase = Phase.End;
+                    speed = 0;
+                }
 
                 break;
+
             case Phase.End:
+
+                foreach (ObjPoolingBall item in ballList)
+                {
+                    item.ball.transform.position = Vector3.Lerp(item.endPos, item.startPos, speed);
+                }
+                speed += Time.deltaTime;
+
+
 
                 timer = timerReset;
                 round++;

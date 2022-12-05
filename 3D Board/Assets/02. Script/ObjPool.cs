@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +6,13 @@ public class ObjPool : MonoBehaviour
     public static ObjPool Instance = null;
 
     //[SerializeField]
-    public GameObject poolingObj;
+    public static GameObject poolingObj;
 
     Queue<GameObject> objPoolingQueue = new Queue<GameObject>();
 
     private void Awake()
     {
-        if(null == Instance)
+        if (null == Instance)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -28,7 +27,7 @@ public class ObjPool : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Initialize(int initCount)
@@ -44,13 +43,13 @@ public class ObjPool : MonoBehaviour
         var temp = Instantiate(poolingObj);
         temp.SetActive(false);
         temp.transform.SetParent(transform);
-        return temp;
 
+        return temp;
     }
 
     public GameObject GetObject(Transform parent)
     {
-        if(objPoolingQueue.Count > 0)
+        if (objPoolingQueue.Count > 0)
         {
             var obj = objPoolingQueue.Dequeue();
             obj.transform.SetParent(parent);
