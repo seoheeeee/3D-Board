@@ -5,8 +5,47 @@ using UnityEngine;
 public class Dice : MonoBehaviour
 {
 
+    Vector3[] randRotation = new Vector3[3];
+    Quaternion startRotation;
+    Quaternion endRotation;
+    float speed;
+    [SerializeField]
+    bool isRoll;
+    System.Random rand;
+    private void Start()
+    {
+        rand = new System.Random();
+
+        int index = rand.Next(randRotation.Length);
+
+        randRotation[0] = new Vector3(90, 0, 0);
+        randRotation[1] = new Vector3(0, 90, 0);
+        randRotation[2] = new Vector3(0, 0, 90);
+
+        startRotation = transform.rotation;
+        endRotation = Quaternion.Euler(randRotation[index] + transform.position);
+    }
 
 
+    private void Update()
+    {
+        if (isRoll)
+        {
+            speed += Time.deltaTime * 4;
+            transform.rotation = Quaternion.Lerp(startRotation,
+                 endRotation, speed);
+
+            if (1.2f < speed)
+            {
+                
+                //isRoll = false;
+                int index = rand.Next(randRotation.Length);
+                startRotation = transform.rotation;
+                endRotation = startRotation * Quaternion.Euler(randRotation[index]);
+                speed = 0;
+            }
+        }
+    }
     #region Old Dice
     //[SerializeField] Rigidbody rb;
     //[SerializeField] DiceSide[] diceSides;
