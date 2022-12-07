@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
+    [SerializeField]
+    Transform dice;
+    [SerializeField]
+    DiceSide[] diceSides;
 
+    System.Random rand;
     Vector3[] randRotation = new Vector3[3];
     Quaternion startRotation;
     Quaternion endRotation;
+
     float speed;
     [SerializeField]
     bool isRoll;
-    System.Random rand;
+    [SerializeField]
+    bool isEnd;
+
     private void Start()
     {
         rand = new System.Random();
@@ -22,8 +31,8 @@ public class Dice : MonoBehaviour
         randRotation[1] = new Vector3(0, 90, 0);
         randRotation[2] = new Vector3(0, 0, 90);
 
-        startRotation = transform.rotation;
-        endRotation = Quaternion.Euler(randRotation[index] + transform.position);
+        startRotation = dice.rotation;
+        endRotation = Quaternion.Euler(randRotation[index] + dice.position);
     }
 
 
@@ -31,21 +40,55 @@ public class Dice : MonoBehaviour
     {
         if (isRoll)
         {
-            speed += Time.deltaTime * 4;
-            transform.rotation = Quaternion.Lerp(startRotation,
+            speed += Time.deltaTime * 8;
+            dice.rotation = Quaternion.Lerp(startRotation,
                  endRotation, speed);
 
-            if (1.2f < speed)
+            if (1 < speed)
             {
-                
                 //isRoll = false;
                 int index = rand.Next(randRotation.Length);
-                startRotation = transform.rotation;
+                startRotation = dice.rotation;
                 endRotation = startRotation * Quaternion.Euler(randRotation[index]);
                 speed = 0;
+
+                if (isEnd)
+                {
+                    isRoll = false;
+                    isEnd = false;
+
+                    StartCoroutine(EndDiceRoll(5));
+                }
             }
         }
     }
+
+    IEnumerator EndDiceRoll(int count)
+    {
+        for (int i = count; i > 0; i--)
+        {
+            while (true)
+            {
+                speed += Time.deltaTime * (8 - count);
+                dice.rotation = Quaternion.Lerp(startRotation,
+                     endRotation, speed);
+
+                if (2f < speed)
+                {
+                    int index = rand.Next(randRotation.Length);
+                    startRotation = dice.rotation;
+                    endRotation = startRotation * Quaternion.Euler(randRotation[index]);
+                    speed = 0;
+                    break;
+                }
+
+                yield return null;
+
+            }
+        }
+    }
+
+
     #region Old Dice
     //[SerializeField] Rigidbody rb;
     //[SerializeField] DiceSide[] diceSides;

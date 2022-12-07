@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class DiceSide : MonoBehaviour
 {
-    private bool onGround;
     public int sideValue;
-
-    public bool OnGround 
-    { 
-        get => onGround; 
-        private set => onGround = value; 
-    }
+    public bool isActive;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Ground")
-            OnGround = true;
+            isActive = true;
     }
-
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Ground")
-            OnGround = false;
+        isActive = false;
     }
 
 }
