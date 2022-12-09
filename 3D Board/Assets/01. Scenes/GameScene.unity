@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -497,11 +497,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8890de26da79cbd40a053ab37add59c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 373937728}
+  dice: {fileID: 0}
   diceSides: []
-  hasLanded: 0
-  thrown: 0
-  diceValue: 0
+  isRoll: 0
+  isEnd: 0
+  value: 0
+  dotActice: {fileID: 0}
+  dotMaterial: {fileID: 0}
 --- !u!65 &373937731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -529,7 +531,7 @@ GameObject:
   - component: {fileID: 557261703}
   m_Layer: 0
   m_Name: Start
-  m_TagString: Untagged
+  m_TagString: StartNode
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2144,6 +2146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startNode: {fileID: 557261703}
+  dices: []
   playerManagerList: []
 --- !u!4 &1957590501
 Transform:
@@ -2892,6 +2895,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 0
+  isActive: 0
+  meshRenderer: {fileID: 0}
 --- !u!23 &6027543246457461333
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3008,6 +3013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 0
+  isActive: 0
+  meshRenderer: {fileID: 0}
 --- !u!23 &7400049671790092815
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3097,6 +3104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 0
+  isActive: 0
+  meshRenderer: {fileID: 0}
 --- !u!1 &8224663808182067407
 GameObject:
   m_ObjectHideFlags: 0
@@ -3129,6 +3138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 0
+  isActive: 0
+  meshRenderer: {fileID: 0}
 --- !u!33 &8373555444751889972
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3150,6 +3161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 0
+  isActive: 0
+  meshRenderer: {fileID: 0}
 --- !u!1 &8485173162270712281
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,3 +3202,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 0
+  isActive: 0
+  meshRenderer: {fileID: 0}

@@ -6,10 +6,13 @@ public class DiceSide : MonoBehaviour
 {
     public int sideValue;
     public bool isActive;
+    public MeshRenderer meshRenderer;
+
 
     private void OnTriggerStay(Collider other)
     {
-            isActive = true;
+        isActive = true;
+
     }
     private void OnTriggerExit(Collider other)
     {

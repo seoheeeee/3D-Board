@@ -5,10 +5,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviourPun
 {
 
+    enum Status
+    {
+
+    }
+
     static GameManager instance;
 
     [SerializeField] Node startNode;
+    [SerializeField] Dice[] dices;
     public List<PlayerManager> playerManagerList;
+
+    int currentPlayer;
 
     public static GameManager Instance
     {
@@ -53,15 +61,33 @@ public class GameManager : MonoBehaviourPun
             }
         }
 
-        playerManagerList[0].node = startNode.nextNode[0];
+        for (int i = 0; i < playerManagerList.Count; i++)
+            playerManagerList[i].node = GameObject.FindGameObjectWithTag("StartNode").GetComponent<Node>().nextNode[playerManagerList[i].Num];
 
-        playerManagerList[0].Move(3);
+
     }
 
-    void DiceRoll()
+
+    private void Update()
     {
-
+        
     }
+
+    public void DiceRoll(bool isRoll)
+    {
+        if (isRoll)
+        {
+            foreach (Dice item in dices)
+                item.isRoll = true;
+        }
+        else
+        {
+            foreach (Dice item in dices)
+                item.isEnd = true;
+        }
+    }
+
+
 
 
 }

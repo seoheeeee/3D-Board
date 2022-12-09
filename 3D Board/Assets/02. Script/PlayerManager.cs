@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
-using Photon.Realtime;
-using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
@@ -13,6 +10,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     TMP_Text numTxt;
     [SerializeField]
     int num;
+    public int step;
 
     [SerializeField]
     float jumpHeight;
@@ -61,15 +59,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     {
         Num = num;
     }
-    public void Move(int diceValue, float speed = 1)
+    public void Move(int diceValue, Direction direction , float speed = 1)
     {
-        StartCoroutine(MovePlayer(diceValue, speed));
+        StartCoroutine(MovePlayer(diceValue, direction, speed));
     }
     // 지역변수 speed = 1 이렇게 선언해주면 이 함수를 다른 곳에서 쓸 때 speed 값을 쓰지 않으면 자동으로 1로 할당된다.
-    IEnumerator MovePlayer(int diceValue ,float speed = 1)
+    IEnumerator MovePlayer(int diceValue , Direction direction ,float speed = 1)
     {
         for (int i = 0; i < diceValue; i++)
         {
+            if (node.direction != Direction.Straight)
+            {
+                step -= i;
+                break;
+            }
             // speed 변수에 담기는 값이 1이 넘으면 Lerp가 끝났다는 증거이기 때문에 말그대로 delay를 줘서 잠시 다음 이동하기 전 유예시간을 주는 코드
             while (1 + delay > this.speed)
             {
@@ -106,8 +109,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     public void Teleport(Vector3 targetPos)
     {
         transform.position = targetPos;
-
-        //photonView.RPC("TeleportRPC", RpcTarget.AllBuffered, targetPos);
     }
     //[PunRPC]
     //void TeleportRPC(Vector3 targetPos)

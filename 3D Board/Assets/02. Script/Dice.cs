@@ -14,12 +14,17 @@ public class Dice : MonoBehaviour
     Vector3[] randRotation = new Vector3[3];
     Quaternion startRotation;
     Quaternion endRotation;
-
+    
     float speed;
+    
+    public bool isRoll;
+    public bool isEnd;
+    public int value;
+
     [SerializeField]
-    bool isRoll;
+    Material dotActice;
     [SerializeField]
-    bool isEnd;
+    Material dotMaterial;
 
     private void Start()
     {
@@ -40,6 +45,9 @@ public class Dice : MonoBehaviour
     {
         if (isRoll)
         {
+            foreach (DiceSide item in diceSides)
+                item.meshRenderer.material = dotMaterial;
+
             speed += Time.deltaTime * 8;
             dice.rotation = Quaternion.Lerp(startRotation,
                  endRotation, speed);
@@ -84,6 +92,15 @@ public class Dice : MonoBehaviour
 
                 yield return null;
 
+            }
+        }
+
+        foreach (DiceSide item in diceSides)
+        {
+            if (item.isActive)
+            {
+                value = item.sideValue;
+                item.meshRenderer.material = dotActice;
             }
         }
     }
