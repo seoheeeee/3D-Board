@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numTxt: {fileID: 3295151184089061271}
   num: 0
+  step: 0
   jumpHeight: 0
   offset: 0
   speed: 0

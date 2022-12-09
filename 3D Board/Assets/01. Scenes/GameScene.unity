@@ -752,7 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b56d8d19dfdfe46be4ab0742e435bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
+  direction: 2
   nextNode: []
 --- !u!65 &736579252
 BoxCollider:
@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b56d8d19dfdfe46be4ab0742e435bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
+  direction: 1
   nextNode:
   - {fileID: 1676847375}
   - {fileID: 736579251}
@@ -1939,7 +1939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b56d8d19dfdfe46be4ab0742e435bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
+  direction: 3
   nextNode: []
 --- !u!65 &1676847376
 BoxCollider:

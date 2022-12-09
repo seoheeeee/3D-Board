@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviourPun
         }
 
         for (int i = 0; i < playerManagerList.Count; i++)
-            playerManagerList[i].node = GameObject.FindGameObjectWithTag("StartNode").GetComponent<Node>().nextNode[playerManagerList[i].Num];
+            playerManagerList[i].node = GameObject.FindGameObjectWithTag("StartNode").GetComponent<Node>().nextNode[playerManagerList[i].Num - 1];
 
 
     }
