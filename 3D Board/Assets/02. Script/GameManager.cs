@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviourPun
 {
 
-    enum Status
+    enum State
     {
 
     }
@@ -16,14 +16,16 @@ public class GameManager : MonoBehaviourPun
     [SerializeField] Dice[] dices;
     public List<PlayerManager> playerManagerList;
 
-    int currentPlayer;
+    Queue<PlayerManager> playerQueue;
+    PlayerManager currentPlayer;
 
     public static GameManager Instance
     {
         get
         {
             if (instance == null)
-                instance = new GameManager();
+                return null;
+
             return instance;
         }
         private set => instance = value;
@@ -47,22 +49,25 @@ public class GameManager : MonoBehaviourPun
     {
 
         //playerManagerList = new List<PlayerManager>();
+        playerQueue = new Queue<PlayerManager>();
+
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Instantiate("Dice", Vector3.zero, Quaternion.identity);
 
         GameObject[] temps = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject item in temps)
-            playerManagerList.Add(item.GetComponent<PlayerManager>());
-
-        if (PhotonNetwork.IsMasterClient)
         {
-            for (int i = 0; i < playerManagerList.Count; i++)
+            PlayerManager temp = item.GetComponent<PlayerManager>();
+            if (temp.photonView.IsMine)
             {
-                playerManagerList[i].Teleport(startNode.nextNode[playerManagerList[i].Num].transform.position);
+                temp.node = GameObject.FindGameObjectWithTag("StartNode").GetComponent<Node>().nodeList[temp.Num - 1];
+                temp.transform.position = temp.node.transform.position + new Vector3(0,0.1f,0);
+                temp.Move(6);
             }
+            playerQueue.Enqueue(temp);
+            playerManagerList.Add(temp);
         }
-
-        for (int i = 0; i < playerManagerList.Count; i++)
-            playerManagerList[i].node = GameObject.FindGameObjectWithTag("StartNode").GetComponent<Node>().nextNode[playerManagerList[i].Num - 1];
 
 
     }

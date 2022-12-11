@@ -54,7 +54,6 @@ public class Dice : MonoBehaviour
 
             if (1 < speed)
             {
-                //isRoll = false;
                 int index = rand.Next(randRotation.Length);
                 startRotation = dice.rotation;
                 endRotation = startRotation * Quaternion.Euler(randRotation[index]);
