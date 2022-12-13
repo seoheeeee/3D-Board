@@ -41,6 +41,9 @@ public class BallGameManager : MonoBehaviour
     int round = 1;
 
     [SerializeField]
+    VariableJoystick joystick;
+
+    [SerializeField]
     TMP_Text numText;
 
     [SerializeField]
@@ -58,6 +61,8 @@ public class BallGameManager : MonoBehaviour
 
     [SerializeField]
     State state;
+
+   
 
     void Start()
     {
