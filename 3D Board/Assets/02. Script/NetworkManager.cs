@@ -30,8 +30,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [Header("ETC")]
     public PhotonView PV;
-    [SerializeField]
-    PlayerManager player;
 
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple;
@@ -87,8 +85,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        Debug.Log(PhotonNetwork.NetworkClientState.ToString());
-        LobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 / " + PhotonNetwork.CountOfPlayers + "접속";
+        //Debug.Log(PhotonNetwork.NetworkClientState.ToString());
+        //LobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 / " + PhotonNetwork.CountOfPlayers + "접속";
     }
 
     public void Connect() => PhotonNetwork.ConnectUsingSettings();
@@ -121,6 +119,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+       
         ChatPanel.SetActive(true);
         LobbyPanel.SetActive(false);
         connectPanel.SetActive(false);
@@ -131,16 +130,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         GameObject temp = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
 
-        player = temp.GetComponent<PlayerManager>();
-
-        PV.RPC("SetPlayer", RpcTarget.All, PhotonNetwork.PlayerList.Length);
+        temp.GetComponent<PlayerManager>().Num = PhotonNetwork.PlayerList.Length;
     }
 
-    [PunRPC]
-    void SetPlayer(int num)
-    {
-        player.Num = num;
-    }
+
 
     public override void OnCreateRoomFailed(short returnCode, string message) { RoomInput.text = ""; CreateRoom(); }
 
@@ -148,6 +141,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+       
         RoomRenewal();
         ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
     }
@@ -173,7 +167,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void SceneChange()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             SceneManager.LoadScene(1);
         }
@@ -201,5 +195,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             ChatText[ChatText.Length - 1].text = msg;
         }
     }
+
+
 
 }
