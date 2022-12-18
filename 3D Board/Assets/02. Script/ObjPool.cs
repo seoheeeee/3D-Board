@@ -6,7 +6,7 @@ public class ObjPool : MonoBehaviour
     public static ObjPool Instance = null;
 
     //[SerializeField]
-    public static GameObject poolingObj;
+    public GameObject poolingObj;
 
     Queue<GameObject> objPoolingQueue = new Queue<GameObject>();
 
@@ -22,12 +22,12 @@ public class ObjPool : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Initialize(20);
+        
     }
 
     void Start()
     {
-
+        Initialize(20);
     }
 
     void Initialize(int initCount)
@@ -47,12 +47,11 @@ public class ObjPool : MonoBehaviour
         return temp;
     }
 
-    public GameObject GetObject(Transform parent)
+    public GameObject GetObject()
     {
         if (objPoolingQueue.Count > 0)
         {
             var obj = objPoolingQueue.Dequeue();
-            obj.transform.SetParent(parent);
             obj.gameObject.SetActive(true);
             obj.transform.localPosition = Vector3.zero;
             return obj;
@@ -62,7 +61,6 @@ public class ObjPool : MonoBehaviour
         {
             var temp = CreatNewObject();
             temp.gameObject.SetActive(true);
-            temp.transform.SetParent(parent);
             temp.transform.localPosition = Vector3.zero;
             return temp;
         }

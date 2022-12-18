@@ -98,19 +98,19 @@ public class BallGameManager : MonoBehaviour
                     for (int i = 0; i < count; i++)
                     {
                         int randomPosIndex =0;
-                        while (true)
-                        {
+                        //while (true)
+                       // {
                             randomPosIndex = Random.Range(0, respawnPosList.Count);
-                            if (!positionIndex.Contains(randomPosIndex))
-                            {
-                                positionIndex.Add(randomPosIndex);
-                                break;
-                            }
-                        }
+                            //if (!positionIndex.Contains(randomPosIndex))
+                            //{
+                            //    positionIndex.Add(randomPosIndex);
+                            //    break;
+                            //}
+                       // }
                         //respawnPosList[randomPosIndex]
-                        ballList.Add(new ObjPoolingBall(ObjPool.Instance.GetObject(respawnPosList[positionIndex[i]]),
-                                                                                   respawnPosList[positionIndex[i]].position,
-                                                                                   respawnPosList[positionIndex[i]].position + new Vector3(0, Random.Range(5, 30),0)));
+                        ballList.Add(new ObjPoolingBall(ObjPool.Instance.GetObject(),
+                                                                                   respawnPosList[i].position,
+                                                                                   respawnPosList[i].position + new Vector3(0, Random.Range(5, 30),0)));
                     }
                     Debug.Log("123");
                     phase = Phase.Start;
@@ -124,13 +124,14 @@ public class BallGameManager : MonoBehaviour
 
                     item.ball.transform.position = Vector3.Lerp(item.startPos, item.endPos, speed);
                     
+                    if (speed > 1)
+                    {
+                        phase = Phase.End;
+                        speed = 0;
+                    }
                 }
                 speed += Time.deltaTime;
-                if (speed > 1)
-                {
-                    phase = Phase.End;
-                    speed = 0;
-                }
+                
 
                 break;
 
@@ -138,7 +139,8 @@ public class BallGameManager : MonoBehaviour
 
                 foreach (ObjPoolingBall item in ballList)
                 {
-                    item.ball.transform.position = Vector3.Lerp(item.endPos, item.startPos, speed);
+
+                    item.ball.transform.position = Vector3.Lerp(item.endPos, respawnPosList[0].position, speed);
                 }
                 speed += Time.deltaTime;
 
